@@ -67,16 +67,26 @@ app.delete('/usuarios/:id', (req, res) => {
 Express.js utiliza middleware para realizar operaciones en la petición HTTP antes de que llegue al controlador y después de que se genere la respuesta. Un middleware es simplemente una función que se ejecuta en el medio de la cadena de procesamiento de la solicitud y la respuesta.
 
 ~~~
-app.use((req, res, next) => {
-  console.log('Petición recibida');
-  next();
+app.use(function(req, res, next){
+   console.log("Start");
+   next();
 });
-app.get('/', (req, res) => {
-  res.send('¡Hola, mundo!');
+
+//Route handler
+app.get('/', function(req, res, next){
+   res.send("Middle");
+   next();
 });
-app.use((req, res, next) => {
-  console.log('Respuesta enviada');
+
+app.use('/', function(req, res){
+   console.log('End');
 });
+~~~
+
+Cuando hacemos la llamada a '/' recibimos como respuesta **Middle** y por consola aparecerá lo siguiente:
+~~~
+Start
+End
 ~~~
 
 ### Plantillas en Express.js
