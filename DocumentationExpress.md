@@ -55,10 +55,10 @@ app.post('/usuarios', (req, res) => {
   res.send('Se ha creado un nuevo usuario');
 });
 app.put('/usuarios/:id', (req, res) => {
-  res.send(`Se ha actualizado el usuario con ID ${req.params.id}`);
+  res.send(`Se ha actualizado el usuario con ID + req.params.id`);
 });
 app.delete('/usuarios/:id', (req, res) => {
-  res.send(`Se ha eliminado el usuario con ID ${req.params.id}`);
+  res.send(`Se ha eliminado el usuario con ID + req.params.id`);
 });
 ~~~
 
