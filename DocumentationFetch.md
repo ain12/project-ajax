@@ -166,7 +166,28 @@ La carga de datos dinámica implica la obtención de información en tiempo real
 
 La función Fetch se puede utilizar para cargar datos dinámicamente en una aplicación web. Para cargar datos dinámicamente, se utiliza la función Fetch para obtener los datos de una fuente externa, y luego se manipulan los datos y se actualiza la interfaz de usuario utilizando el método DOM.
 
-### Ejemplo
+### Ejemplo acoplado
+
+En este ejemplo, metemos los datos dinamicamente directamente desde el Fetch.
+
+HTML:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uso de Fetch para cargar datos dinámicamente</title>
+  </head>
+  <body>
+    <h1>Lista Dinámica</h1>
+    <div id="mi-lista">
+      <ul id="lista"></ul>
+    </div>
+  </body>
+</html>
+```
+
+Javascript:
 
 ```javascript
 function obtenerDatos() {
