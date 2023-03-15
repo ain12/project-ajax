@@ -5,6 +5,7 @@
     -   [Enrutamiento en Express.js](#Enrutamiento-en-Expressjs)
     -   [Middleware en Express.js](#Middleware-en-Expressjs)
     -   [Plantillas en Express.js](#Plantillas-en-Expressjs)
+-   [Retornando un JSON con Express.js](#Retornando-un-JSON-con-Expressjs)
 -   [Generador de aplicación Express](#Generador-de-aplicación-Express)
 -   [Conexión a base de datos](#Conexión-a-base-de-datos)
     -   [Conexión a MongoDB](#Conexión-a-MongoDB)
@@ -114,6 +115,38 @@ app.get('/', (req, res) => {
   res.render('index', { titulo: 'Mi sitio web' });
 });
 ```
+Retornando un JSON con Express.js
+---------------------------------
+
+La mejor forma de retornar un JSON con Express.js es utilizando el método res.json(). Este método establece automáticamente el encabezado Content-Type en application/json y convierte el objeto JavaScript que le pasamos en una cadena JSON antes de enviarlo en la respuesta HTTP.
+
+### Ejemplo
+Aquí hay un ejemplo de cómo usar res.json() en una ruta de Express:
+
+```javascript
+app.get('/ejemplo', function(req, res) {
+  const objetoJSON = { mensaje: 'Este es un ejemplo de JSON' };
+  res.json(objetoJSON);
+});
+```
+
+En este ejemplo, estamos definiendo una ruta GET para /ejemplo y respondiendo con un objeto JSON que contiene un mensaje.
+
+Enviando una respuesta JSON junto con un código de estado HTTP personalizado
+El método res.json() también puede ser utilizado para enviar una respuesta JSON junto con un código de estado HTTP personalizado. Por ejemplo:
+
+```javascript
+app.get('/usuarios', function(req, res) {
+  const usuarios = [
+    { nombre: 'Juan', edad: 25 },
+    { nombre: 'María', edad: 30 },
+    { nombre: 'Pedro', edad: 20 }
+  ];
+  res.status(200).json(usuarios);
+});
+```
+
+En este ejemplo, estamos definiendo una ruta GET para /usuarios y respondiendo con un array de objetos JSON que contiene información de usuario. Además, estamos usando el método res.status() para establecer un código de estado HTTP personalizado (en este caso, 200 OK) antes de enviar la respuesta JSON con res.json().
 
 Generador de aplicación Express
 -------------------------------
