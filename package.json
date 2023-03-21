@@ -10,5 +10,18 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "morgan": "~1.9.1"
-  }
+  },
+  "description": "",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ain12/project-ajax.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ain12/project-ajax/issues"
+  },
+  "homepage": "https://github.com/ain12/project-ajax#readme"
 }
