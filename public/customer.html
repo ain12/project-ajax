@@ -22,8 +22,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="./css/adminlte.min.css">
 </head>
+<style>
+    .fa-trash{
+        color: red;
+    }
+</style>
+<script>
+    window.onload = function() {
+        let table = document.getElementById('table-body')
+        fetch('/customer')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(element => {
+                table.innerHTML += '<tr>'+
+                    '<td>'+element.customer_id+'</td>'+
+                    '<td>'+element.store_id+'</td>'+
+                    '<td>'+element.first_name+'</td>'+
+                    '<td>'+element.last_name+'</td>'+
+                    '<td>'+element.email+'</td>'+
+                    '<td>'+element.address+'</td>'+
+                    '<td ><a class="btn" onclick="removeUser('+element.customer_id+')"><i class="fas fa-trash"></i></a> </td>'+
+                    '</tr>'
+            });
+        })
+    }
+    function removeUser(id) {
+        const url = `/customer/delete/${id}`
+        
+        fetch(url, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+            console.log(`Elemento con ID ${id} eliminado correctamente`);
+        } else {
+            console.error(`Ha ocurrido un error al eliminar el elemento con ID ${id}`);
+        }
+        })
+        .catch(error => {
+            console.error(`Ha ocurrido un error al eliminar el elemento con ID ${id}: ${error}`);
+        });
+    }
+</script>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+    
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -219,12 +262,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
+            <h1 class="m-0">Customer Page</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Customer Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -233,11 +276,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <h1>Welcome</h1>
+    <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">All customers</h3>
+
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0" style="height: 300px;">
+            <table class="table table-head-fixed text-nowrap">
+              <thead>
+                <tr>
+                  <th>CustomerID</th>
+                  <th>StoreID</th>
+                  <th>Fisrt name</th>
+                  <th>Last name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                
+              </tbody>
+            </table>
+          </div>
+          <button type="button" class="btn btn-block btn-outline-primary btn-lg">Create user</button>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
       </div>
-    </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
