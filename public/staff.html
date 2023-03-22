@@ -235,7 +235,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <h1>Welcome</h1>
+        <h1>Funciona ^^</h1>
+        <div id="actors">
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Staff Table</h3>
+  
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <button id="createStaff" class="btn btn-primary">Add Staff</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover text-nowrap">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
       </div>
     </div>
     <!-- /.content -->
@@ -272,5 +308,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="./js/adminlte.min.js"></script>
+<script src="./javascripts/staff-data.js"></script>
 </body>
 </html>
