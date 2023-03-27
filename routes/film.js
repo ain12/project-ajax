@@ -1,23 +1,9 @@
-const { Pool } = require("pg");
 const express = require("express");
 const router = express.Router();
+const db = require("../db");
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "postgres",
-  password: "1234",
-  port: 5432,
-});
 
-// pool.connect((error) => {
-//   if (error) {
-//     console.error("Error connecting to database:", error);
-//   } else {
-//     console.log("Connected!");
-//   }
-// });
-pool.connect((err, client, done) => {
+db.connect((err, client, done) => {
     if (err) {
       console.error('Error de conexión:', err);
     } else {
@@ -25,9 +11,9 @@ pool.connect((err, client, done) => {
     }
   });
 
-router.get("/film", async (req, res) => {
-  pool.query(
-    "SELECT tittle, description, release_year, length, rating FROM film",(error, results) => {
+router.get("/film/get", async (req, res) => {
+  db.query(
+    "SELECT title, description, release_year, length, rating FROM film",(error, results) => {
       if (error) {
         console.error("Error fetching film:", error);
         res.status(400).send(error);
