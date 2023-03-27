@@ -1,22 +1,74 @@
 const tableBody = document.getElementById("tableBody");
 const staffForm = document.getElementById("staffForm");
+const successAlert = document.querySelector(".successLabel");
+const pageSize = 6;
+let curPage = 1;
+let data;
+
+const previousPage = () => {
+  console.log("hola");
+  if (curPage > 1) curPage--;
+  renderTable();
+};
+
+const nextPage = () => {
+  if (curPage * pageSize < data.length) curPage++;
+  renderTable();
+};
+
+document
+  .getElementById("nextButton")
+  .addEventListener("click", nextPage, false);
+document
+  .getElementById("prevButton")
+  .addEventListener("click", previousPage, false);
+
+const deleteStaff = async (id) => {
+  /*  e.target.parentNode.parentNode.children[0].innerHTML */ console.log(id);
+  const response = await fetch(`/api/staff/delete/${id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  console.log(data);
+  /*  location.reload(); */
+  getActors();
+};
+
+const renderTable = () => {
+  tableBody.innerHTML = "";
+  data
+    .filter((row, index) => {
+      let start = (curPage - 1) * pageSize;
+      let end = curPage * pageSize;
+      if (index >= start && index < end) return true;
+    })
+    .forEach((staff) => {
+      tableBody.innerHTML += `<tr>
+      <td>${staff.staff_id}</td>
+      <td>${staff.first_name}</td>
+      <td>${staff.last_name}</td>
+      <td>${staff.address}</td>
+      <td>${staff.email}</td>
+      <td><button class="btn btn-secondary editbtn">Edit</button></td>
+      <td><button class="btn btn-danger removebtn" onclick="deleteStaff(${staff.staff_id})">Remove</button></td>
+    </tr>`;
+    });
+};
 
 const getActors = async () => {
   const response = await fetch("/api/staff/get");
+  data = await response.json();
+  renderTable();
+};
+
+const getShops = async () => {
+  const response = await fetch("/api/shop/get");
   const data = await response.json();
-  data.forEach((staff) => {
-    /* const actor = document.createElement("p");
-    actor.innerHTML = element.first_name;
-    actors.appendChild(actor); */
-    tableBody.innerHTML += `<tr>
-    <td>${staff.staff_id}</td>
-    <td>${staff.first_name}</td>
-    <td>${staff.last_name}</td>
-    <td>${staff.address}</td>
-    <td>${staff.email}</td>
-    <td><button class="btn btn-secondary">Edit</button></td>
-    <td><button class="btn btn-danger">Remove</button></td>
-  </tr>`;
+  data.forEach((shop) => {
+    const shopOption = document.createElement("option");
+    shopOption.value = shop.store_id;
+    shopOption.innerHTML = shop.store_id;
+    document.getElementById("store").appendChild(shopOption);
   });
 };
 
@@ -51,19 +103,18 @@ staffForm.addEventListener("submit", (e) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-
-      staffForm.innerHTML += `
-      <div class="alert alert-success" role="alert">
-        Staff added succesfully!
-    </div>
-      `;
-      // Hacer algo con la respuesta del servidor si es necesario
+      getActors();
+      successAlert.classList.remove("successLabel");
+      setTimeout(() => {
+        successAlert.classList.add("successLabel");
+      }, 3000);
     })
     .catch((error) => {
-      //console.error("Error:" + error);
+      console.error("Error:" + error);
     });
 
-  staffForm.reset();
+  e.target.reset();
 });
 
 getActors();
+getShops();

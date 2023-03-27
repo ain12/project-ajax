@@ -21,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="./css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./css/adminlte.min.css">
+  <link rel="stylesheet" href="css/staff.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -198,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="customer.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Adri
@@ -277,8 +278,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <input type="email" class="form-control" id="emailaddress">
                                           </div>
                                           <div class="form-group">
+                                            <!-- <label for="store">StoreId:</label>
+                                            <input type="number" class="form-control" id="store"> -->
                                             <label for="store">StoreId:</label>
-                                            <input type="number" class="form-control" id="store">
+                                            <select class="form-control" id="store">
+                                              <option value="def" selected disabled>Elige una tienda...</option>
+                                            </select>
                                           </div>
                                           <div class="form-group">
                                             <label for="username">Username:</label>
@@ -288,6 +293,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <label for="password">Password:</label>
                                             <input type="password" class="form-control" id="password">
                                           </div>
+                                        
+                                        <div class="alert alert-success successLabel" role="alert">
+                                            Staff added succesfully!
+                                        </div>
+                                        
                                         <button type="submit" id="" class="btn btn-primary">Submit</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                       </form>
@@ -304,7 +314,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                  <table class="table table-hover text-nowrap">
+                  <table id="myTable" class="table table-hover text-nowrap">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -317,6 +327,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <tbody id="tableBody">
                     </tbody>
                   </table>
+                  <nav class="d-flex justify-content-center">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" id="prevButton" href="#" data-page="previous">Previous</a></li>
+                      <!-- <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li> -->
+                      <li class="page-item"><a class="page-link" id="nextButton" href="#" data-page="next">Next</a></li>
+                    </ul>
+                  </nav>
                 </div>
                 <!-- /.card-body -->
               </div>

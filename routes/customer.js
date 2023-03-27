@@ -1,4 +1,4 @@
-let express = require('express');
+/* let express = require('express');
 let router = express.Router();
 
 const { Pool } = require('pg');
@@ -44,3 +44,4 @@ router.delete('/delete/:id', function(req, res, next) {
 });
 
 module.exports = router;
+ */
