@@ -25,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/ain12/project-ajax/issues"
   },
-  "homepage": "https://github.com/ain12/project-ajax#readme"
+  "homepage": "https://github.com/ain12/project-ajax#readme",
+  "devDependencies": {}
 }

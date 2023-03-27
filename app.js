@@ -6,7 +6,7 @@ require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-//var customerRouter = require("./routes/customer");
+var customerRouter = require("./routes/customer");
 var usersStaff = require("./routes/staff");
 
 var app = express();
@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-/* app.use('/customer', customerRouter); */
+app.use('/customer', customerRouter);
 app.use("/api", usersStaff);
 
 module.exports = app;
