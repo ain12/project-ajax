@@ -49,8 +49,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <style>
     .fa-trash {
       color: red;
+      cursor: pointer;
     }
-
     .spinner {
       position: absolute;
       top: 50%;
@@ -367,12 +367,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </table>
               <div id="spinner"></div>
             </div>
-            <button
-              type="button"
-              class="btn btn-block btn-outline-primary btn-lg"
-            >
-              Create user
-            </button>
+            <button onclick="getCities(); getStores()" type="button" data-toggle="modal" id="createCustomer" class="btn btn-block btn-outline-primary btn-lg" data-target="#staticBackdrop"> Create customer</button>
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Customer:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <form id="staffForm">
+                          <div class="form-group">
+                            <label for="firstname">First Name:</label>
+                            <input type="text" class="form-control" id="firstname">
+                          </div>
+                          <div class="form-group">
+                            <label for="lastname">Last Name:</label>
+                            <input type="text" class="form-control" id="lastname">
+                          </div>
+                          <div class="form-group">
+                            <label for="address">Address:</label>
+                            <input type="text" class="form-control" id="address">
+                            <label for="cp">Postal code:</label>
+                            <input type="text" class="form-control" id="cp">
+                            <label for="city">City:</label>
+                            <select class="form-control" id="city">
+                              <option value="def" selected disabled>Elige una ciudad...</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                              <label for="emailaddress">Email:</label>
+                              <input type="email" class="form-control" id="emailaddress">
+                            </div>
+                            <div class="form-group">      
+                              <label for="store">StoreId:</label>
+                              <select class="form-control" id="store">
+                                <option value="def" selected disabled>Elige una tienda...</option>
+                              </select>
+                            </div>                                  
+                          <button type="submit" onclick="createCustomer()" class="btn btn-primary">Submit</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </form>
+                  </div>                  
+                </div>
+              </div>
+            </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
@@ -404,58 +446,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </footer>
     </div>
     <!-- ./wrapper -->
-    <script>
-      let table = document.getElementById("table-body");
-
-      const getCustomers = async () => {
-        table.innerHTML = "";
-        const target = document.getElementById('spinner');
-        const spinner = new Spinner().spin(target); // crea un nuevo spinner
-        fetch("/customer")
-          .then((response) => response.json())
-          .then((data) => {
-            data.forEach((element) => {
-              table.innerHTML +=
-                "<tr>" +
-                "<td>" +
-                element.customer_id +
-                "</td>" +
-                "<td>" +
-                element.store_id +
-                "</td>" +
-                "<td>" +
-                element.first_name +
-                "</td>" +
-                "<td>" +
-                element.last_name +
-                "</td>" +
-                "<td>" +
-                element.email +
-                "</td>" +
-                "<td>" +
-                element.address +
-                "</td>" +
-                '<td ><a class="btn" onclick="removeUser(' +
-                element.customer_id +
-                ')"><i class="fas fa-trash"></i></a> </td>' +
-                "</tr>";
-            });
-
-            // oculta el spinner
-            spinner.stop();
-          });
-      };
-      const removeUser = async (id) => {
-        const url = `/customer/delete/${id}`;
-
-        const response = await fetch(url, {
-          method: "DELETE",
-        });
-        const data = await response.json();
-        console.log(data);
-        getCustomers();
-      };
-      getCustomers();
-    </script>
+    <script src="./javascripts/customer-data.js"></script>
   </body>
 </html>
