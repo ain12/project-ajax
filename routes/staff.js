@@ -18,6 +18,22 @@ router.get("/staff/get", async (req, res) => {
   );
 });
 
+router.get("/staff/get/:id", async (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "SELECT staff_id, first_name, last_name, a.address, email, store_id, username, password FROM staff s inner join address a on s.address_id = a.address_id WHERE staff_id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        console.error("Error fetching staff:", error);
+        res.status(500).send("Error fetching staff");
+      } else {
+        res.json(results.rows[0]);
+      }
+    }
+  );
+});
+
 router.get("/shop/get", async (req, res) => {
   db.query("SELECT * FROM store", (error, results) => {
     if (error) {
@@ -69,6 +85,57 @@ router.post("/staff/create", async (req, res) => {
             }
           }
         );
+      }
+    }
+  );
+});
+
+router.put("/staff/update/:id", async (req, res) => {
+  const id = req.params.id;
+  const {
+    first_name,
+    last_name,
+    address,
+    email,
+    store_id,
+    username,
+    password,
+  } = req.body;
+
+  let address_id;
+
+  const addressQuery = await db.query(
+    "SELECT address_id FROM address WHERE address = $1",
+    [address]
+  );
+
+  if (addressQuery.rows.length > 0) {
+    address_id = addressQuery.rows[0].address_id;
+  } else {
+    const newAddressQuery = await db.query(
+      "INSERT INTO address (address, address2, district, city_id, postal_code, phone) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id",
+      [address, "prueba", "N/A", 1, "prueba", "783748"]
+    );
+    address_id = newAddressQuery.rows[0].address_id;
+  }
+  db.query(
+    "UPDATE staff SET first_name = $1, last_name = $2, address_id = $3, email = $4, store_id = $5, username = $6, password = $7 WHERE staff_id = $8",
+    [
+      first_name,
+      last_name,
+      address_id,
+      email,
+      store_id,
+      username,
+      password,
+      id,
+    ],
+    (error, results) => {
+      if (error) {
+        console.error("Error updating staff:", error);
+        res.status(500).send("Error updating staff");
+      } else {
+        res.json({ status: "success" });
       }
     }
   );

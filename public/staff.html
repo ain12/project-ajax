@@ -291,7 +291,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                           </div>
                                           <div class="form-group">
                                             <label for="password">Password:</label>
-                                            <input type="password" class="form-control" id="password">
+                                            <input type="password" class="form-control password-update" id="password">
+                                            <input type="checkbox" onclick="toggleVisibility()"/>Show Password
                                           </div>
                                         
                                         <div class="alert alert-success successLabel" role="alert">
@@ -337,6 +338,59 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </ul>
                   </nav>
                 </div>
+                <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Update Staff:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <form id="staffFormUpdate">
+                              <div class="form-group">
+                                <label for="firstname">First Name:</label>
+                                <input type="text" class="form-control" id="firstname-update">
+                              </div>
+                              <div class="form-group">
+                                <label for="lastname">Last Name:</label>
+                                <input type="text" class="form-control" id="lastname-update">
+                              </div>
+                              <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" class="form-control" id="address-update">
+                              </div>
+                              <div class="form-group">
+                                  <label for="emailaddress">Email:</label>
+                                  <input type="email" class="form-control" id="emailaddress-update">
+                                </div>
+                                <div class="form-group">
+                                  <!-- <label for="store">StoreId:</label>
+                                  <input type="number" class="form-control" id="store"> -->
+                                  <label for="store">StoreId:</label>
+                                  <select class="form-control" id="store-update">
+                                    <option value="def" selected disabled>Elige una tienda...</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="username">Username:</label>
+                                  <input type="text" class="form-control" id="username-update">
+                                </div>
+                                <div class="form-group">
+                                  <label for="password">Password:</label>
+                                  <input type="password" class="form-control password-update" id="password-update">
+                                  <input type="checkbox" onclick="toggleVisibility()"/>Show Password
+                                </div>
+                              
+                              <div class="alert alert-success successLabelUpdate" role="alert">
+                                  Staff added succesfully!
+                              </div>
+                              
+                              <button type="submit" id="submitUpdate" class="btn btn-primary">Submit</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </form>
+                      </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->

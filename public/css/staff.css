@@ -1,3 +1,7 @@
 .alert.successLabel {
     display: none !important;
 }
+
+.alert.successLabelUpdate {
+    display: none !important;
+}
