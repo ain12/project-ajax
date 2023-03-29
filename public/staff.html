@@ -220,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
+            <h1 class="m-0">Staff</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -236,7 +236,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <h1>Funciona ^^</h1>
         <div id="actors">
         </div>
 
@@ -286,6 +285,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </select>
                                           </div>
                                           <div class="form-group">
+                                            <div class="checkB">
+                                              <label for="active">Activo:</label>
+                                              <input type="checkbox" class="form-control" id="active">
+                                              
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
                                             <label for="username">Username:</label>
                                             <input type="text" class="form-control" id="username">
                                           </div>
@@ -326,14 +332,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </tr>
                     </thead>
                     <tbody id="tableBody">
+                      <tr>
+                        <td id="box" colspan="5">
+                          <div id="loader" class="loader"></div>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                   <nav class="d-flex justify-content-center">
                     <ul class="pagination">
                       <li class="page-item"><a class="page-link" id="prevButton" href="#" data-page="previous">Previous</a></li>
-                      <!-- <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li> -->
                       <li class="page-item"><a class="page-link" id="nextButton" href="#" data-page="next">Next</a></li>
                     </ul>
                   </nav>
@@ -343,43 +351,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Update Staff:</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div>
+                          <button onclick="toogleEdit()">Edit</button>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeformupdate">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
                       </div>
                       <div class="modal-body">
                           <form id="staffFormUpdate">
                               <div class="form-group">
                                 <label for="firstname">First Name:</label>
-                                <input type="text" class="form-control" id="firstname-update">
+                                <input type="text" class="form-control" id="firstname-update" disabled>
                               </div>
                               <div class="form-group">
                                 <label for="lastname">Last Name:</label>
-                                <input type="text" class="form-control" id="lastname-update">
+                                <input type="text" class="form-control" id="lastname-update" disabled>
                               </div>
                               <div class="form-group">
                                 <label for="address">Address:</label>
-                                <input type="text" class="form-control" id="address-update">
+                                <input type="text" class="form-control" id="address-update" disabled>
                               </div>
                               <div class="form-group">
                                   <label for="emailaddress">Email:</label>
-                                  <input type="email" class="form-control" id="emailaddress-update">
+                                  <input type="email" class="form-control" id="emailaddress-update" disabled>
                                 </div>
                                 <div class="form-group">
                                   <!-- <label for="store">StoreId:</label>
                                   <input type="number" class="form-control" id="store"> -->
                                   <label for="store">StoreId:</label>
-                                  <select class="form-control" id="store-update">
+                                  <select class="form-control" id="store-update" disabled>
                                     <option value="def" selected disabled>Elige una tienda...</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
+                                  <div class="checkB">
+                                    <label for="active-update">Activo:</label>
+                                    <input type="checkbox" class="form-control" id="active-update" disabled>
+                                    
+                                  </div>
+                                </div>
+                                <div class="form-group">
                                   <label for="username">Username:</label>
-                                  <input type="text" class="form-control" id="username-update">
+                                  <input type="text" class="form-control" id="username-update" disabled>
                                 </div>
                                 <div class="form-group">
                                   <label for="password">Password:</label>
-                                  <input type="password" class="form-control password-update" id="password-update">
+                                  <input type="password" class="form-control password-update" id="password-update" disabled>
                                   <input type="checkbox" onclick="toggleVisibility()"/>Show Password
                                 </div>
                               
@@ -387,8 +405,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                   Staff added succesfully!
                               </div>
                               
-                              <button type="submit" id="submitUpdate" class="btn btn-primary">Submit</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" id="submitUpdate" class="btn btn-primary" disabled>Submit</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeformupdate2">Close</button>
                             </form>
                       </div>
                 <!-- /.card-body -->

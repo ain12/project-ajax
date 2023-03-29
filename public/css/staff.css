@@ -5,3 +5,28 @@
 .alert.successLabelUpdate {
     display: none !important;
 }
+
+.loader {
+    border: 8px solid #7F8487;
+    border-top: 8px solid #3498db; 
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+  }
+
+  .checkB {
+    display: flex;
+  }
+
+  .checkB input{
+    width: 50px;
+
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

@@ -2,10 +2,57 @@ const tableBody = document.getElementById("tableBody");
 const staffForm = document.getElementById("staffForm");
 const successAlert = document.querySelector(".successLabel");
 const successAlertUpdate = document.querySelector(".successLabelUpdate");
+const loader = document.getElementById("loader");
 const pageSize = 6;
 let curPage = 1;
 let data;
 let idUpdate;
+
+const toogleEdit = () => {
+  const form = document.getElementById("staffFormUpdate");
+
+  let firstname = form.querySelector("#firstname-update");
+  let lastname = form.querySelector("#lastname-update");
+  let address = form.querySelector("#address-update");
+  let email = form.querySelector("#emailaddress-update");
+  let store = form.querySelector("#store-update");
+  let active = form.querySelector("#active-update");
+  let username = form.querySelector("#username-update");
+  let password = form.querySelector("#password-update");
+  let submitBtn = form.querySelector("#submitUpdate");
+
+  firstname.disabled = !firstname.disabled;
+  lastname.disabled = !lastname.disabled;
+  address.disabled = !address.disabled;
+  email.disabled = !email.disabled;
+  store.disabled = !store.disabled;
+  active.disabled = !active.disabled;
+  username.disabled = !username.disabled;
+  password.disabled = !password.disabled;
+  submitBtn.disabled = !submitBtn.disabled;
+};
+
+closeformupdate.addEventListener("click", () => {
+  document.getElementById("staffFormUpdate").querySelector("#firstname-update")
+    .disabled
+    ? null
+    : toogleEdit();
+});
+
+closeformupdate2.addEventListener("click", () => {
+  document.getElementById("staffFormUpdate").querySelector("#firstname-update")
+    .disabled
+    ? null
+    : toogleEdit();
+});
+
+const displayLoading = () => {
+  loader.style.display = "block";
+};
+
+const hideLoading = () => {
+  loader.style.display = "none";
+};
 
 const previousPage = () => {
   console.log("hola");
@@ -37,21 +84,25 @@ const deleteStaff = async (id) => {
 };
 
 async function getStaffData(id) {
+  displayLoading();
   const response = await fetch(`/api/staff/get/${id}`);
   const data = await response.json();
+  hideLoading();
   return data;
 }
 
 const renderStaff = async (id) => {
   idUpdate = id;
+  displayLoading();
   const staff = await getStaffData(id);
   const form = document.getElementById("staffFormUpdate");
-
+  hideLoading();
   form.querySelector("#firstname-update").value = staff.first_name;
   form.querySelector("#lastname-update").value = staff.last_name;
   form.querySelector("#address-update").value = staff.address;
   form.querySelector("#emailaddress-update").value = staff.email;
   form.querySelector("#store-update").value = staff.store_id;
+  form.querySelector("#active-update").checked = staff.active;
   form.querySelector("#username-update").value = staff.username;
   form.querySelector("#password-update").value = staff.password;
 };
@@ -71,28 +122,35 @@ const renderTable = () => {
       <td>${staff.last_name}</td>
       <td>${staff.address}</td>
       <td>${staff.email}</td>
-      <td><button type="button" class="btn btn-secondary editbtn" data-toggle="modal" data-target="#staticBackdrop2" onclick="renderStaff(${staff.staff_id})">Edit</button></td>
+      <td><button type="button" class="btn btn-secondary editbtn" data-toggle="modal" data-target="#staticBackdrop2" onclick="renderStaff(${staff.staff_id})">View</button></td>
       <td><button class="btn btn-danger removebtn" onclick="deleteStaff(${staff.staff_id})">Remove</button></td>
     </tr>`;
     });
 };
 
 const getActors = async () => {
+  displayLoading();
   const response = await fetch("/api/staff/get");
   data = await response.json();
   renderTable();
+  setTimeout(() => {
+    hideLoading();
+  }, 5000);
 };
 
 const getShops = async (action) => {
+  displayLoading();
   const response = await fetch("/api/shop/get");
   const data = await response.json();
+  hideLoading();
   data.forEach((shop) => {
+    console.log(shop);
     const shopOption = document.createElement("option");
     shopOption.value = shop.store_id;
-    shopOption.innerHTML = shop.store_id;
+    shopOption.innerHTML = shop.address;
     const shopOption2 = document.createElement("option");
     shopOption2.value = shop.store_id;
-    shopOption2.innerHTML = shop.store_id;
+    shopOption2.innerHTML = shop.address;
     document.getElementById("store").appendChild(shopOption);
     document.getElementById("store-update").appendChild(shopOption2);
   });
@@ -106,8 +164,10 @@ staffForm.addEventListener("submit", (e) => {
   const address = document.getElementById("address").value;
   const email = document.getElementById("emailaddress").value;
   const store = document.getElementById("store").value;
+  const active = document.getElementById("active").checked;
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
+  console.log(active);
 
   const data = {
     first_name: firstName,
@@ -115,10 +175,11 @@ staffForm.addEventListener("submit", (e) => {
     address: address,
     email: email,
     store_id: Number(store),
+    active: active,
     username: username,
     password: password,
   };
-
+  displayLoading();
   fetch("/api/staff/create", {
     method: "POST",
     headers: {
@@ -128,6 +189,7 @@ staffForm.addEventListener("submit", (e) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      hideLoading();
       console.log(data);
       getActors();
       successAlert.classList.remove("successLabel");
@@ -149,6 +211,7 @@ document.getElementById("staffFormUpdate").addEventListener("submit", (e) => {
   const address = document.getElementById("address-update").value;
   const email = document.getElementById("emailaddress-update").value;
   const store = document.getElementById("store-update").value;
+  const active = document.getElementById("active-update").checked;
   const username = document.getElementById("username-update").value;
   const password = document.getElementById("password-update").value;
 
@@ -158,9 +221,12 @@ document.getElementById("staffFormUpdate").addEventListener("submit", (e) => {
     address: address,
     email: email,
     store_id: Number(store),
+    active: active,
     username: username,
     password: password,
   };
+
+  displayLoading();
 
   fetch(`/api/staff/update/${idUpdate}`, {
     method: "PUT",
@@ -171,6 +237,7 @@ document.getElementById("staffFormUpdate").addEventListener("submit", (e) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      hideLoading();
       console.log(data);
       getActors();
       successAlertUpdate.classList.remove("successLabelUpdate");
