@@ -23,6 +23,22 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/get/:id', async function(req, res, next) {
+    const id = parseInt(req.params.id)
+    
+    db.query('select first_name, last_name, a.address, a.postal_code, c2.city_id, email, store_id '+ 
+    'from customer c '+ 
+    'inner join address a on c.address_id = a.address_id ' +
+    'inner join city c2 on a.city_id = c2.city_id '+
+    'where c.customer_id = $1', [id], (err, resultados) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).json(resultados.rows)    
+        }
+    });
+});
+
 router.delete('/delete/:id', async function(req, res, next) {
     const id = parseInt(req.params.id)
     
@@ -36,7 +52,6 @@ router.delete('/delete/:id', async function(req, res, next) {
 });
 
 router.get('/cities', function(req, res, next) {
-    // Ejecutamos una consulta SELECT
     db.query('SELECT * FROM city', (err, resultados) => {
         if (err) {
             res.status(400).send(err);
@@ -47,7 +62,6 @@ router.get('/cities', function(req, res, next) {
 });
 
 router.get('/stores', function(req, res, next) {
-    // Ejecutamos una consulta SELECT
     db.query('SELECT * FROM store', (err, resultados) => {
         if (err) {
             res.status(400).send(err);

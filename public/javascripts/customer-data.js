@@ -1,6 +1,10 @@
+//const { get } = require("../../routes");
+
 let table = document.getElementById("table-body")
-let cities = document.getElementById("city")
-let stores = document.getElementById("store")
+const cities = document.getElementById("city")
+const stores = document.getElementById("store")
+const citiesUpdate = document.getElementById("update-city")
+const storesUpdate = document.getElementById("update-store")
 
 const getCustomers = async () => {
   table.innerHTML = "";
@@ -13,33 +17,52 @@ const getCustomers = async () => {
         table.innerHTML +=
           "<tr>" +
           "<td>" +
-          element.customer_id +
+            element.customer_id +
           "</td>" +
           "<td>" +
-          element.store_id +
+            element.store_id +
           "</td>" +
           "<td>" +
-          element.first_name +
+            element.first_name +
           "</td>" +
           "<td>" +
-          element.last_name +
+            element.last_name +
           "</td>" +
           "<td>" +
-          element.email +
+            element.email +
           "</td>" +
           "<td>" +
-          element.address +
+            element.address +
           "</td>" +
-          '<td ><a class="btn" onclick="removeUser(' +
-          element.customer_id +
-          ')"><i class="fas fa-trash"></i></a> </td>' +
+          '<td >'+
+            '<a class="btn" onclick="removeUser(' + element.customer_id + ')"><i class="fas fa-trash"></i></a>'+
+            '<a class="btn" data-toggle="modal" id="updateCustomer" data-target="#staticUpdateBackdrop" onclick="getCustomer('+ element.customer_id +')" "><i class="fas fa-edit"></i></a>'+
+          '</td>' +
           "</tr>";
       });
-
-      // oculta el spinner
+      
       spinner.stop();
     });
 };
+
+const getCustomer = async (id) => {
+  const url = `/customer/get/${id}`
+
+  fetch(url)
+  .then((response)=> response.json())
+  .then((data) => {
+    data.forEach((element)=>{
+      document.getElementById('update-firstname').value = element.first_name
+      document.getElementById('update-lastname').value = element.last_name
+      document.getElementById('update-address').value = element.address
+      document.getElementById('update-cp').value = element.postal_code
+      document.getElementById('update-city').value = element.city_id
+      document.getElementById('update-emailaddress').value = element.email
+      document.getElementById('update-store').value = element.store_id
+    })  
+  })
+
+}
 const removeUser = async (id) => {
   const url = `/customer/delete/${id}`;
 
@@ -56,25 +79,27 @@ const getCities = async () => {
     .then((response) => response.json())
     .then((data) => {
         data.forEach((element)=>{
-            const option = document.createElement('option')
-            option.value = element.city_id
-            option.innerHTML = element.city
-            cities.append(option)
+          let option = document.createElement('option')
+          option.value = element.city_id
+          option.innerHTML = element.city
+          cities.append(option)
+          citiesUpdate.append(option)
         })
     })
 }
 
 const getStores = async () => {
-    fetch('/customer/stores')
-    .then((response) => response.json())
-    .then((data) => {
-        data.forEach((element)=>{
-            const option = document.createElement('option')
-            option.value = element.store_id
-            option.innerHTML = element.store_id
-            stores.append(option)
-        })
-    })
+  fetch('/customer/stores')
+  .then((response) => response.json())
+  .then((data) => {
+      data.forEach((element)=>{
+        let option = document.createElement('option')
+        option.value = element.store_id
+        option.innerHTML = element.store_id
+        stores.append(option)
+        storesUpdate.append(option)
+      })
+  })
 }
 
 const createCustomer = async () => {
@@ -113,3 +138,5 @@ const createCustomer = async () => {
 }
 
 getCustomers();
+getCities()
+getStores()
