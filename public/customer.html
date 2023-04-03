@@ -45,6 +45,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="./js/adminlte.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </head>
   <style>
     .fa-trash {
@@ -71,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             ></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -115,112 +117,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </form>
             </div>
           </li>
-
-          <!-- Messages Dropdown Menu -->
-          <li class="nav-item dropdown">
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img
-                    src="./img/user1-128x128.jpg"
-                    alt="User Avatar"
-                    class="img-size-50 mr-3 img-circle"
-                  />
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-right text-sm text-danger"
-                        ><i class="fas fa-star"></i
-                      ></span>
-                    </h3>
-                    <p class="text-sm">Call me whenever you can...</p>
-                    <p class="text-sm text-muted">
-                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img
-                    src="./img/user8-128x128.jpg"
-                    alt="User Avatar"
-                    class="img-size-50 img-circle mr-3"
-                  />
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      John Pierce
-                      <span class="float-right text-sm text-muted"
-                        ><i class="fas fa-star"></i
-                      ></span>
-                    </h3>
-                    <p class="text-sm">I got your message bro</p>
-                    <p class="text-sm text-muted">
-                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img
-                    src="./img/user3-128x128.jpg"
-                    alt="User Avatar"
-                    class="img-size-50 img-circle mr-3"
-                  />
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      Nora Silvester
-                      <span class="float-right text-sm text-warning"
-                        ><i class="fas fa-star"></i
-                      ></span>
-                    </h3>
-                    <p class="text-sm">The subject goes here</p>
-                    <p class="text-sm text-muted">
-                      <i class="far fa-clock mr-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer"
-                >See All Messages</a
-              >
-            </div>
-          </li>
-          <!-- Notifications Dropdown Menu -->
-          <li class="nav-item dropdown">
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <span class="dropdown-header">15 Notifications</span>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-users mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-file mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer"
-                >See All Notifications</a
-              >
-            </div>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
               <i class="fas fa-expand-arrows-alt"></i>
@@ -244,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="/" class="brand-link">
           <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
 
@@ -367,7 +263,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </table>
               <div id="spinner"></div>
             </div>
-            <button onclick="getCities(); getStores()" type="button" data-toggle="modal" id="createCustomer" class="btn btn-block btn-outline-primary btn-lg" data-target="#staticBackdrop"> Create customer</button>
+            <button type="button" data-toggle="modal" id="createCustomer" class="btn btn-block btn-outline-primary btn-lg" data-target="#staticBackdrop"> Create customer</button>
+            
+            <!-- Modal de creación de usuarios -->
             <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -378,7 +276,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </button>
                   </div>
                   <div class="modal-body">
-                      <form id="staffForm">
+                      <form id="customerAddForm">
                           <div class="form-group">
                             <label for="firstname">First Name:</label>
                             <input type="text" class="form-control" id="firstname">
@@ -393,33 +291,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <label for="cp">Postal code:</label>
                             <input type="text" class="form-control" id="cp">
                             <label for="city">City:</label>
-                            <select class="form-control" id="city">
-                              <option value="def" selected disabled>Elige una ciudad...</option>
+                            <select class="form-control" id="city">                              
                             </select>
                           </div>
                           <div class="form-group">
                               <label for="emailaddress">Email:</label>
                               <input type="email" class="form-control" id="emailaddress">
-                            </div>
-                            <div class="form-group">      
+                          </div>
+                          <div class="form-group">      
                               <label for="store">StoreId:</label>
-                              <select class="form-control" id="store">
-                                <option value="def" selected disabled>Elige una tienda...</option>
+                              <select class="form-control" id="store">                                
                               </select>
-                            </div>                                  
+                          </div>                                                          
                           <button type="submit" onclick="createCustomer()" class="btn btn-primary">Submit</button>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          </div>
                         </form>
                   </div>                  
                 </div>
               </div>
             </div>
-            <!-- /.card-body -->
-          </div>
           <!-- /.card -->
         </div>
         <!-- /.content -->
+        </div>
+      <div class="modal fade" id="staticUpdateBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Update Customer:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="customerUpdateForm">
+                    <div style="display: none;">                      
+                      <input type="number" class="form-control" id="update-id">
+                    </div>
+                    <div class="form-group">
+                      <label for="update-firstname">First Name:</label>
+                      <input type="text" class="form-control" id="update-firstname">
+                    </div>
+                    <div class="form-group">
+                      <label for="update-lastname">Last Name:</label>
+                      <input type="text" class="form-control" id="update-lastname">
+                    </div>
+                    <div class="form-group">
+                      <label for="update-address">Address:</label>
+                      <input type="text" class="form-control" id="update-address">
+                      <label for="update-cp">Postal code:</label>
+                      <input type="text" class="form-control" id="update-cp">
+                      <label for="update-city">City:</label>
+                      <select class="form-control" id="update-city">                              
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-emailaddress">Email:</label>
+                        <input type="email" class="form-control" id="update-emailaddress">
+                    </div>
+                    <div class="form-group">      
+                        <label for="update-store">StoreId:</label>
+                        <select class="form-control" id="update-store">                                
+                        </select>
+                    </div>                                                          
+                    <button type="submit" onclick="updateCustomer()" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </form>
+            </div>                  
+          </div>
       </div>
       <!-- /.content-wrapper -->
 
@@ -432,19 +371,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </aside>
       <!-- /.control-sidebar -->
-
-      <!-- Main Footer -->
-      <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">Anything you want</div>
-        <!-- Default to the left -->
-        <strong
-          >Copyright &copy; 2014-2021
-          <a href="https://adminlte.io">AdminLTE.io</a>.</strong
-        >
-        All rights reserved.
-      </footer>
-    </div>
+      </div>
     <!-- ./wrapper -->
     <script src="./javascripts/customer-data.js"></script>
   </body>
