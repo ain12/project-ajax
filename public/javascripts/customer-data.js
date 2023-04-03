@@ -65,15 +65,39 @@ const getCustomer = async (id) => {
 }
 
 const removeUser = async (id) => {
-  const url = `/customer/delete/${id}`;
+  const url = `/customer/delete/${id}`
 
-  const response = await fetch(url, {
-    method: "DELETE",
+  // const response = await fetch(url, {
+  //   method: "DELETE",
+  // });
+  // const data = await response.json();
+  // getCustomers()
+  // toastr.success(data.message, {
+  //   timeOut: 5000
+  // });
+
+  fetch(url, {
+    method: "DELETE"
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(response.json().error);
+      }
+    })
+    .then((data) => {
+      toastr.success(data.message, {
+        timeOut: 10000
+      })
+      getCustomers()
+    })
+    .catch((error) => {
+      toastr.error(error, {
+        timeOut: 10000
+      })
   });
-  const data = await response.json();
-  console.log(data);
-  getCustomers();
-};
+}
 
 const getCities = async () => {
     fetch('/customer/cities')

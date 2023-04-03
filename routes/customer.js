@@ -42,7 +42,7 @@ router.delete('/delete/:id', async function(req, res, next) {
     
     db.query('DELETE FROM customer c WHERE customer_id = $1', [id], (err, resultados) => {
         if (err) {
-            res.status(500).send(err);
+            res.status(500).json({error: `Error deleting customer with ID: ${id}`});
         } else {
             res.status(200).json({message: `User deleted with ID: ${id}`})    
         }
