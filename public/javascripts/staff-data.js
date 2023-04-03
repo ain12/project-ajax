@@ -258,8 +258,6 @@ document.getElementById("staffFormUpdate").addEventListener("submit", (e) => {
         errorAlertUpdate.classList.add("dangerLabelUpdate");
       }, 3000);
     });
-
-  e.target.reset();
 });
 
 const toggleVisibility = () => {
