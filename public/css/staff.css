@@ -6,6 +6,10 @@
     display: none !important;
 }
 
+.dangerLabel, .dangerLabelUpdate {
+    display: none !important;
+}
+
 .loader {
     border: 8px solid #7F8487;
     border-top: 8px solid #3498db; 

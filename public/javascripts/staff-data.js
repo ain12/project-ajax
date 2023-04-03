@@ -2,6 +2,8 @@ const tableBody = document.getElementById("tableBody");
 const staffForm = document.getElementById("staffForm");
 const successAlert = document.querySelector(".successLabel");
 const successAlertUpdate = document.querySelector(".successLabelUpdate");
+const errorAlert = document.querySelector(".dangerLabel");
+const errorAlertUpdate = document.querySelector(".dangerLabelUpdate");
 const loader = document.getElementById("loader");
 const pageSize = 6;
 let curPage = 1;
@@ -80,7 +82,7 @@ const deleteStaff = async (id) => {
   const data = await response.json();
   console.log(data);
   /*  location.reload(); */
-  getActors();
+  getStaff();
 };
 
 async function getStaffData(id) {
@@ -128,7 +130,7 @@ const renderTable = () => {
     });
 };
 
-const getActors = async () => {
+const getStaff = async () => {
   displayLoading();
   const response = await fetch("/api/staff/get");
   data = await response.json();
@@ -191,14 +193,18 @@ staffForm.addEventListener("submit", (e) => {
     .then((data) => {
       hideLoading();
       console.log(data);
-      getActors();
+      getStaff();
       successAlert.classList.remove("successLabel");
       setTimeout(() => {
         successAlert.classList.add("successLabel");
       }, 3000);
     })
     .catch((error) => {
-      console.error("Error:" + error);
+      errorAlert.classList.remove("dangerLabel");
+      setTimeout(() => {
+        errorAlert.classList.add("dangerLabel");
+      }, 3000);
+      console.log("funciona");
     });
 
   e.target.reset();
@@ -239,13 +245,19 @@ document.getElementById("staffFormUpdate").addEventListener("submit", (e) => {
     .then((data) => {
       hideLoading();
       console.log(data);
-      getActors();
+      getStaff();
       successAlertUpdate.classList.remove("successLabelUpdate");
       setTimeout(() => {
         successAlertUpdate.classList.add("successLabelUpdate");
       }, 3000);
     })
-    .catch((error) => {});
+    .catch((error) => {
+      console.log("funciona");
+      errorAlertUpdate.classList.remove("dangerLabelUpdate");
+      setTimeout(() => {
+        errorAlertUpdate.classList.add("dangerLabelUpdate");
+      }, 3000);
+    });
 
   e.target.reset();
 });
@@ -261,5 +273,5 @@ const toggleVisibility = () => {
   });
 };
 
-getActors();
+getStaff();
 getShops();
