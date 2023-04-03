@@ -306,12 +306,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </form>
                   </div>                  
                 </div>
+              </div>
             </div>
-          </div>
           <!-- /.card -->
         </div>
         <!-- /.content -->
-      </div>
+        </div>
       <div class="modal fade" id="staticUpdateBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -323,29 +323,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="modal-body">
                 <form id="customerUpdateForm">
+                    <div style="display: none;">                      
+                      <input type="number" class="form-control" id="update-id">
+                    </div>
                     <div class="form-group">
-                      <label for="firstname">First Name:</label>
+                      <label for="update-firstname">First Name:</label>
                       <input type="text" class="form-control" id="update-firstname">
                     </div>
                     <div class="form-group">
-                      <label for="lastname">Last Name:</label>
+                      <label for="update-lastname">Last Name:</label>
                       <input type="text" class="form-control" id="update-lastname">
                     </div>
                     <div class="form-group">
-                      <label for="address">Address:</label>
+                      <label for="update-address">Address:</label>
                       <input type="text" class="form-control" id="update-address">
-                      <label for="cp">Postal code:</label>
+                      <label for="update-cp">Postal code:</label>
                       <input type="text" class="form-control" id="update-cp">
-                      <label for="city">City:</label>
+                      <label for="update-city">City:</label>
                       <select class="form-control" id="update-city">                              
                       </select>
                     </div>
                     <div class="form-group">
-                        <label for="emailaddress">Email:</label>
+                        <label for="update-emailaddress">Email:</label>
                         <input type="email" class="form-control" id="update-emailaddress">
                     </div>
                     <div class="form-group">      
-                        <label for="store">StoreId:</label>
+                        <label for="update-store">StoreId:</label>
                         <select class="form-control" id="update-store">                                
                         </select>
                     </div>                                                          
@@ -366,19 +369,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </aside>
       <!-- /.control-sidebar -->
-
-      <!-- Main Footer -->
-      <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">Anything you want</div>
-        <!-- Default to the left -->
-        <strong
-          >Copyright &copy; 2014-2021
-          <a href="https://adminlte.io">AdminLTE.io</a>.</strong
-        >
-        All rights reserved.
-      </footer>
-    </div>
+      </div>
     <!-- ./wrapper -->
     <script src="./javascripts/customer-data.js"></script>
   </body>

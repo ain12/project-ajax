@@ -52,6 +52,7 @@ const getCustomer = async (id) => {
   .then((response)=> response.json())
   .then((data) => {
     data.forEach((element)=>{
+      document.getElementById('update-id').value = element.customer_id
       document.getElementById('update-firstname').value = element.first_name
       document.getElementById('update-lastname').value = element.last_name
       document.getElementById('update-address').value = element.address
@@ -61,8 +62,8 @@ const getCustomer = async (id) => {
       document.getElementById('update-store').value = element.store_id
     })  
   })
-
 }
+
 const removeUser = async (id) => {
   const url = `/customer/delete/${id}`;
 
@@ -80,9 +81,12 @@ const getCities = async () => {
     .then((data) => {
         data.forEach((element)=>{
           let option = document.createElement('option')
+          let option1 = document.createElement('option')
           option.value = element.city_id
           option.innerHTML = element.city
-          cities.append(option)
+          option1.value = element.city_id
+          option1.innerHTML = element.city
+          cities.append(option1)
           citiesUpdate.append(option)
         })
     })
@@ -94,9 +98,12 @@ const getStores = async () => {
   .then((data) => {
       data.forEach((element)=>{
         let option = document.createElement('option')
+        let option1 = document.createElement('option')
         option.value = element.store_id
         option.innerHTML = element.store_id
-        stores.append(option)
+        option1.value = element.store_id
+        option1.innerHTML = element.store_id
+        stores.append(option1)
         storesUpdate.append(option)
       })
   })
@@ -137,6 +144,43 @@ const createCustomer = async () => {
     });
 }
 
-getCustomers();
+const updateCustomer = async () => {
+  const id = document.getElementById('update-id').value
+  const firstname = document.getElementById('update-firstname').value
+  const lastname = document.getElementById('update-lastname').value
+  const address = document.getElementById('update-address').value
+  const cp = document.getElementById('update-cp').value
+  const city = document.getElementById('update-city').value
+  const emailaddress = document.getElementById('update-emailaddress').value
+  const store = document.getElementById('update-store').value
+
+  const json = {
+      customer_id : id,
+      first_name : firstname,
+      last_name : lastname,
+      address : address,
+      postal_code : Number(cp),
+      city_id : Number(city),
+      email : emailaddress,
+      store_id : Number(store)
+  }
+
+  fetch('/customer/update', {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify(json),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error("Error:" + error);
+  });
+}
+
+getCustomers()
 getCities()
 getStores()
