@@ -66,36 +66,26 @@ const getCustomer = async (id) => {
 
 const removeUser = async (id) => {
   const url = `/customer/delete/${id}`
-
-  // const response = await fetch(url, {
-  //   method: "DELETE",
-  // });
-  // const data = await response.json();
-  // getCustomers()
-  // toastr.success(data.message, {
-  //   timeOut: 5000
-  // });
-
   fetch(url, {
     method: "DELETE"
     })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        toastr.error(data.error, {
+          timeOut: 10000,
+          extendedTimeOut: 10000
+        })
       } else {
-        throw new Error(response.json().error);
+        toastr.success(data.message, {
+          timeOut: 10000,
+          extendedTimeOut: 10000
+        })
+        getCustomers()
       }
     })
-    .then((data) => {
-      toastr.success(data.message, {
-        timeOut: 10000
-      })
-      getCustomers()
-    })
     .catch((error) => {
-      toastr.error(error, {
-        timeOut: 10000
-      })
+      console.log("Error:" + error);
   });
 }
 
@@ -161,7 +151,18 @@ const createCustomer = async () => {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      if (data.error) {
+        toastr.error(data.error, {
+          timeOut: 10000,
+          extendedTimeOut: 10000
+        })
+      } else {
+        toastr.success(data.message, {
+          timeOut: 10000,
+          extendedTimeOut: 10000
+        })
+        getCustomers()
+      }
     })
     .catch((error) => {
       console.error("Error:" + error);
@@ -198,13 +199,25 @@ const updateCustomer = async () => {
   })
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
+    if (data.error) {
+      toastr.error(data.error, {
+        timeOut: 10000,
+        extendedTimeOut: 10000
+      })
+    } else {
+      toastr.success(data.message, {
+        timeOut: 10000,
+        extendedTimeOut: 10000
+      })
+      getCustomers()
+    }
   })
   .catch((error) => {
     console.error("Error:" + error);
   });
 }
 
-getCustomers()
+window.onload = getCustomers()
+
 getCities()
 getStores()

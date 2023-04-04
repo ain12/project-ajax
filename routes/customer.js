@@ -90,7 +90,7 @@ router.post("/create", async (req, res) => {
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.status(200).json(resultados.rows);
+                    res.status(200).json({message: 'Customer created successfully!'});
                 }
             })
         }
@@ -109,7 +109,7 @@ router.post("/update", async (req, res) => {
         store_id
     } = req.body;
 
-    let addres_id
+    let address_id
 
     const addressExists = await db.query(
         "SELECT address_id FROM address WHERE address = $1",
@@ -117,21 +117,21 @@ router.post("/update", async (req, res) => {
     );
 
     if (addressExists.rows.length > 0) {
-        addres_id = addressExists.rows[0].addres_id;
+        address_id = addressExists.rows[0].address_id;
     } else {
         const newAddress = await db.query(
             "INSERT INTO address (address, address2, district, city_id, postal_code, phone) VALUES ($1, $2, $3, $4, $5, $6) RETURNING address_id",
             [address, "", "", city_id, postal_code, ""]
         );
-        addres_id = newAddress.rows[0].address_id
+        address_id = newAddress.rows[0].address_id
     }
 
     db.query("update customer set store_id = $1, first_name = $2, last_name = $3, email = $4, address_id = $5 where customer_id = $6 ",
-    [store_id, first_name, last_name, email, addres_id, customer_id], (err, resultados) => {
+    [store_id, first_name, last_name, email, address_id, customer_id], (err, resultados) => {
         if (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         } else {
-            res.status(200).json(resultados.rows);
+            res.status(200).json({message: 'Customer updated successfully!'});
         }
     })
 })
