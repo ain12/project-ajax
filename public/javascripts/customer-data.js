@@ -13,6 +13,11 @@ const getCustomers = async () => {
   fetch("/customer")
     .then((response) => response.json())
     .then((data) => {
+      if ($.fn.DataTable.isDataTable($("#data_table"))) {
+        $("#data_table").DataTable().destroy()
+        table.innerHTML = ""
+        $("#data_table").innerHTML = ""
+      }
       data.forEach((element) => {
         table.innerHTML +=
           "<tr>" +
@@ -40,7 +45,18 @@ const getCustomers = async () => {
           '</td>' +
           "</tr>";
       });
-      
+
+      $("#data_table").DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+        }
+      });
       spinner.stop();
     });
 };
@@ -124,73 +140,26 @@ const getStores = async () => {
 }
 
 const createCustomer = async () => {
-    const firstname = document.getElementById('firstname').value
-    const lastname = document.getElementById('lastname').value
-    const address = document.getElementById('address').value
-    const cp = document.getElementById('cp').value
-    const city = document.getElementById('city').value
-    const emailaddress = document.getElementById('emailaddress').value
-    const store = document.getElementById('store').value
-
-    const json = {
-        first_name : firstname,
-        last_name : lastname,
-        address : address,
-        postal_code : Number(cp),
-        city_id : Number(city),
-        email : emailaddress,
-        store_id : Number(store)
-    }
-
-    fetch('/customer/create', {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(json),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.error) {
-        toastr.error(data.error, {
-          timeOut: 10000,
-          extendedTimeOut: 10000
-        })
-      } else {
-        toastr.success(data.message, {
-          timeOut: 10000,
-          extendedTimeOut: 10000
-        })
-        getCustomers()
-      }
-    })
-    .catch((error) => {
-      console.error("Error:" + error);
-    });
-}
-
-const updateCustomer = async () => {
-  const id = document.getElementById('update-id').value
-  const firstname = document.getElementById('update-firstname').value
-  const lastname = document.getElementById('update-lastname').value
-  const address = document.getElementById('update-address').value
-  const cp = document.getElementById('update-cp').value
-  const city = document.getElementById('update-city').value
-  const emailaddress = document.getElementById('update-emailaddress').value
-  const store = document.getElementById('update-store').value
+  $('#staticBackdrop').modal('hide')
+  const firstname = document.getElementById('firstname').value
+  const lastname = document.getElementById('lastname').value
+  const address = document.getElementById('address').value
+  const cp = document.getElementById('cp').value
+  const city = document.getElementById('city').value
+  const emailaddress = document.getElementById('emailaddress').value
+  const store = document.getElementById('store').value
 
   const json = {
-      customer_id : id,
-      first_name : firstname,
-      last_name : lastname,
-      address : address,
-      postal_code : Number(cp),
-      city_id : Number(city),
-      email : emailaddress,
-      store_id : Number(store)
+    first_name : firstname,
+    last_name : lastname,
+    address : address,
+    postal_code : Number(cp),
+    city_id : Number(city),
+    email : emailaddress,
+    store_id : Number(store)
   }
 
-  fetch('/customer/update', {
+  fetch('/customer/create', {
       method: "POST",
       headers: {
       "Content-Type": "application/json",
@@ -215,6 +184,63 @@ const updateCustomer = async () => {
   .catch((error) => {
     console.error("Error:" + error);
   });
+}
+
+const updateCustomer = async () => {
+  $('#staticUpdateBackdrop').modal('hide')
+  const id = document.getElementById('update-id').value
+  const firstname = document.getElementById('update-firstname').value
+  const lastname = document.getElementById('update-lastname').value
+  const address = document.getElementById('update-address').value
+  const cp = document.getElementById('update-cp').value
+  const city = document.getElementById('update-city').value
+  const emailaddress = document.getElementById('update-emailaddress').value
+  const store = document.getElementById('update-store').value
+
+  const json = {
+    customer_id : id,
+    first_name : firstname,
+    last_name : lastname,
+    address : address,
+    postal_code : Number(cp),
+    city_id : Number(city),
+    email : emailaddress,
+    store_id : Number(store)
+  }
+
+  fetch('/customer/update', {
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json",
+    },
+    body: JSON.stringify(json),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.error) {
+      toastr.error(data.error, {
+        timeOut: 10000,
+        extendedTimeOut: 10000
+      })
+    } else {
+      toastr.success(data.message, {
+        timeOut: 10000,
+        extendedTimeOut: 10000
+      })
+      getCustomers()
+    }
+  })
+  .catch((error) => {
+    console.error("Error:" + error);
+  });
+}
+
+function clearForm() {
+  document.getElementById('firstname').value = ""
+  document.getElementById('lastname').value = ""
+  document.getElementById('address').value = ""
+  document.getElementById('cp').value = ""
+  document.getElementById('emailaddress').value = ""
 }
 
 window.onload = getCustomers()
