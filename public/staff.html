@@ -227,6 +227,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
+            <div class="alert alert-success successLabelDelete" role="alert">
+              Staff deleted succesfully!
+          </div>
+
+          <div class="alert alert-danger dangerLabelDelete" role="alert">
+            Error deleting staff.
+          </div>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -345,8 +352,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </table>
                   <nav class="d-flex justify-content-center">
                     <ul class="pagination">
+                      <li class="page-item"><a class="page-link" id="firstButton" href="#">First</a></li>
                       <li class="page-item"><a class="page-link" id="prevButton" href="#" data-page="previous">Previous</a></li>
                       <li class="page-item"><a class="page-link" id="nextButton" href="#" data-page="next">Next</a></li>
+                      <li class="page-item"><a class="page-link" id="lastButton" href="#">Last</a></li>
                     </ul>
                   </nav>
                 </div>

@@ -6,7 +6,11 @@
     display: none !important;
 }
 
-.dangerLabel, .dangerLabelUpdate {
+.alert.successLabelDelete {
+    display: none !important;
+}
+
+.dangerLabel, .dangerLabelUpdate, .dangerLabelDelete {
     display: none !important;
 }
 

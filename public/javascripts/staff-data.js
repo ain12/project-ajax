@@ -4,6 +4,8 @@ const successAlert = document.querySelector(".successLabel");
 const successAlertUpdate = document.querySelector(".successLabelUpdate");
 const errorAlert = document.querySelector(".dangerLabel");
 const errorAlertUpdate = document.querySelector(".dangerLabelUpdate");
+const successLabelDelete = document.querySelector(".successLabelDelete");
+const dangerLabelDelete = document.querySelector(".dangerLabelDelete");
 const loader = document.getElementById("loader");
 const pageSize = 6;
 let curPage = 1;
@@ -67,6 +69,23 @@ const nextPage = () => {
   renderTable();
 };
 
+function goToFirstPage() {
+  curPage = 1;
+  renderTable();
+}
+
+function goToLastPage() {
+  curPage = Math.ceil(data.length / pageSize);
+  renderTable();
+}
+
+document
+  .getElementById("firstButton")
+  .addEventListener("click", goToFirstPage, false);
+document
+  .getElementById("lastButton")
+  .addEventListener("click", goToLastPage, false);
+
 document
   .getElementById("nextButton")
   .addEventListener("click", nextPage, false);
@@ -81,7 +100,18 @@ const deleteStaff = async (id) => {
   });
   const data = await response.json();
   console.log(data);
-  /*  location.reload(); */
+  if (response.status === 500) {
+    dangerLabelDelete.classList.remove("dangerLabelDelete");
+    setTimeout(() => {
+      dangerLabelDelete.classList.add("dangerLabelDelete");
+    }, 3000);
+  } else {
+    successLabelDelete.classList.remove("successLabelDelete");
+    setTimeout(() => {
+      successLabelDelete.classList.add("successLabelDelete");
+    }, 3000);
+    getStaff();
+  }
   getStaff();
 };
 
