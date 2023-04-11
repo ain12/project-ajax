@@ -23,7 +23,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/customer", customerRouter);
 app.use("/api", usersStaff);
-/* app.use("/api", usersStaff); */
 app.use("/api", usersFilm);
 
 module.exports = app;
