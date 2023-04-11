@@ -21,6 +21,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="./css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./css/adminlte.min.css">
+  <script>
+    $(document).ready(function(){
+      $('#createFilm').on('click',function(){
+        
+      })
+    });
+  </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -70,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="./img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <!-- <img src="./img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle"> -->
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -86,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="./img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <!-- <img src="./img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> -->
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -102,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="./img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <!-- <img src="./img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> -->
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -261,11 +268,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <th>Release Year</th>
                         <th>Duration</th>
                         <th>Rate</th>
+                        <th>Replacement Cost</th>
                       </tr>
                     </thead>
                     <tbody id="tableBody">
                     </tbody>
                   </table>
+                  <nav class="d-flex justify-content-center">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" id="prevButton" href="#" data-page="previous">Previous</a></li>
+                      <li class="page-item"><a class="page-link" id="nextButton" href="#" data-page="next">Next</a></li>
+                    </ul>
+                  </nav>
                 </div>
                 <!-- /.card-body -->
               </div>
