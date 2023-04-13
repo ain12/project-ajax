@@ -13,7 +13,7 @@ db.connect((err, client, done) => {
 
 router.get("/film/get", async (req, res) => {
   db.query(
-    "SELECT title, description, release_year, length, rating, replacement_cost FROM film LIMIT 25",(error, results) => {
+    "SELECT title, description, release_year, length, rating, replacement_cost, film_id FROM film LIMIT 25",(error, results) => {
       if (error) {
         console.error("Error fetching film:", error);
         res.status(400).send(error);
@@ -78,13 +78,15 @@ router.put("/film/update/:id", async (req, res) => {
 
 //insert 
 router.post("/film/create", async (req, res) => {
-  const { film_id, title, description, release_year, length, rating, replacement_cost } = req.body;
+  console.log(req);
+  const { title, description, release_year, length, rating, replacement_cost } = req.body;
   db.query(
-    "INSERT INTO film (film_id, title, description, release_year, length, rating, replacement_cost) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING film_id",
-    [film_id, title, description, release_year, length, rating, replacement_cost],
+    "INSERT INTO film (title, description, release_year, length, rating, replacement_cost) VALUES ($1, $2, $3, $4, $5, $6) RETURNING film_id",
+    [title, description, release_year, length, rating, replacement_cost],
     (error, results) => {
       if (error) {
         console.error("Error creating film:", error);
+        console.error(results);
         res.status(500).send("Error creating film");
       } else {
         console.log(results);
